@@ -28,10 +28,9 @@ for k = 1:N_exp
     data = readtable(filename,'Sheet',sheets(k));
     data_numeric = ensureNumeric(data);
     
-    % Trim any completely null rows (all NaN's that come from text rows)
-    data_numeric( all( isnan(data_numeric{:,:}), 2),: ) = [];
+    % Trim any dummy rows
     
-    % Now check data size
+    
     Nrows = size(data_numeric,1);
     
     % Initialise each data

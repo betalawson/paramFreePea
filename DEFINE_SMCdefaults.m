@@ -17,7 +17,7 @@ options.terminate_acceptance = true;    % Specifies whether to terminate SMC-ABC
 options.terminate_progress = true;      % Specifies whether to terminate SMC-ABC when progress (judged by evolving threshold of discrepany thresholds) has stalled
 options.D_target = -Inf;                % Target discrepancy that triggers exit from the SMC-ABC routine if 'terminate_D' flag set
 options.stall_tol = 1e-4;               % The minimum level of decrease required for an iteration to count as not stalled
-options.stall_iterations = 5;                % The number of non-improving iterations that triggers termination
+options.stall_iterations = 5;           % The number of non-improving iterations that triggers termination
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

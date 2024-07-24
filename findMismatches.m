@@ -1,4 +1,4 @@
-function discrep_flags = findMismatches(model_data, exp_data)
+function [discrep_flags, categories] = findMismatches(model_data, exp_data)
 % This function looks through the model data, and determines the optimal
 % way to 'pool' the model predictions, while preserving their rank
 % ordering, such as to minimise discrepancies between the pooled
@@ -39,10 +39,18 @@ for m = 1:max(exp_data)-1
     
     % Use whichever cutoff is superior to determine discrepancies
     if sum(discreps1) < sum(discreps2)
+        cutoffs(m) = model_max + 1e-10;
         discrep_flags(discreps1) = true;
     else
+        cutoffs(m) = model_min - 1e-10;
         discrep_flags(discreps2) = true;
     end
     
 end
 
+% Apply the cutoffs found to classify the model data - work in descending
+% order so that less than conditions can be simply applied in succession
+categories = max(exp_data) * ones(size(model_data));
+for m = max(exp_data)-1:-1:1
+    categories( model_data < cutoffs(m) ) = m;
+end
