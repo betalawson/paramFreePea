@@ -1,4 +1,4 @@
-function exampleNetwork
+function FIGURE1_exampleNetwork
 
 
 %%% SIMULATION SPECIFICATIONS

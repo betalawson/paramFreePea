@@ -1,4 +1,4 @@
-function localSensitivityAnalysis(regenerate)
+function FIGURE7_localSensitivityAnalysis(regenerate)
 % This function performs local sensitivity analysis around the parameter
 % values obtained via running the function RUNNER_DunABC. That is, it takes
 % the particle set of posterior samples and evaluates the parameter

@@ -122,15 +122,15 @@ alphas = [1,1];
 % Listing genotypes to plot - wild type
 genotype_list{1}.phi_s = [1;1;1];
 genotype_list{1}.phi_r = [1;1];
-% Listing genotypes to plot - no root-derived strigolactone
+% Listing genotypes to plot - no root-derived feedback signal
 genotype_list{2}.phi_s = [1;1;1];
-genotype_list{2}.phi_r = [1;0];
+genotype_list{2}.phi_r = [0;1];
+% Listing genotypes to plot - no root-derived strigolactone
+genotype_list{3}.phi_s = [1;1;1];
+genotype_list{3}.phi_r = [1;0];
 % Listing genotypes to plot - no shoot-derived strigolactone
 %      (special case for which this is unstable)
-genotype_list{3}.phi_s = [1;0;1];
-genotype_list{3}.phi_r = [0;1];
-% Listing genotypes to plot - no root-derived feedback signal
-genotype_list{4}.phi_s = [1;1;1];
+genotype_list{4}.phi_s = [1;0;1];
 genotype_list{4}.phi_r = [0;1];
 
 % Number of legend columns
@@ -187,7 +187,7 @@ ylabel('Concentration, [FS] (Dimensionless)');
 set(gca, 'FontSize',20, 'LineWidth',2.5);
 
 % Add legend
-genotype_names = {'Wild Type', 'No Root SL', 'No Shoot SL', 'No Root FS'};
+genotype_names = {'Wild Type', 'No Root FS', 'No Root SL', 'No Shoot SL'};
 leg_txt = {};
 for k = 1:length(genotype_names)
     % Add entry (with spaces if not final set)

@@ -1,4 +1,4 @@
-function FIGURE3_modelVsData_COLORS
+function FIGURE5_modelVsData_COLORS
 % This function produces the figure presenting comparisons between the best
 % particle's model, the baseline (parameter-free) model, and the data from
 % experiments. Given the variability in scale of model predictions, these
