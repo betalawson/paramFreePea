@@ -36,7 +36,7 @@ for m = 1:max(exp_data)-1
     else
         discreps2 = true(1,N);
     end
-    
+        
     % Use whichever cutoff is superior to determine discrepancies
     if sum(discreps1) < sum(discreps2)
         cutoffs(m) = model_max + 1e-10;

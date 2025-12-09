@@ -116,6 +116,10 @@ end
 
 % Initialise diagnostic storage
 acceptance_rates = [];
+discrepancy_thresholds = [];
+
+% Initialise particles history storage
+particles_history{1} = particles;
 
 %%% Perform the resample-move style SMC-ABC algorithm
 D_old = Inf;
@@ -131,13 +135,14 @@ while looping
     % Sort particles using these
     [~,I] = sort(part_Ds, 'ascend');
     particles = particles(I);
-    
+        
     
     
     %%% DETERMINE CULL THRESHOLD AND RESAMPLE REJECTED PARTICLES
     
-    % Find threshold by checking worst kept particle
+    % Find threshold by checking worst kept particle, store in diagnostics
     D_threshold = particles{Nkeep}.D;
+    discrepancy_thresholds(end+1) = D_threshold;
     
     % Choose a random sample from kept particles to copy onto
     r = randi(Nkeep, [Nparts - Nkeep, 1]);
@@ -236,6 +241,9 @@ while looping
     
     % Update the storage of old discrepancy target (used to check progress)
     D_old = D_threshold;
+    
+    % Update particles history storage
+    particles_history{end+1} = particles;
             
 end
 
@@ -245,4 +253,6 @@ end
 % Save diagnostic information
 diagnostics.model_runs = model_runs;
 diagnostics.acceptance_rates = acceptance_rates;
-diagnostics.overall_acceptance_rate = mean(acceptance_rates);       
+diagnostics.overall_acceptance_rate = mean(acceptance_rates);
+diagnostics.discrepancy_thresholds = discrepancy_thresholds;
+diagnostics.particles_history = particles_history;

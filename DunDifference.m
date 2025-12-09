@@ -58,16 +58,16 @@ FS_new = 2 ./ (1 + I) .* phi_FS;
 
 % Root feedback signal
 if delayed
-    fs_new = phi_fs + alphas(2) / Ns * sum(FS_old);
+    fs_new = phi_fs + alphas(1) / Ns * sum(FS_old);
 else
-    fs_new = phi_fs + alphas(2) / Ns * sum(FS);
+    fs_new = phi_fs + alphas(1) / Ns * sum(FS);
 end
 
 % Shoot strigolactone
 if delayed
-    SL_new = FS.^2 .* phi_SL + alphas(1) / Nr * sum(sl_old);
+    SL_new = FS.^2 .* phi_SL + alphas(2) / Nr * sum(sl_old);
 else
-    SL_new = FS.^2 .* phi_SL + alphas(1) / Nr * sum(sl);
+    SL_new = FS.^2 .* phi_SL + alphas(2) / Nr * sum(sl);
 end
 
 % Root strigolactone

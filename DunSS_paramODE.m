@@ -1,8 +1,8 @@
 function [SS, converged] = DunSS_paramODE(params, phi_s, phi_r)
-% This function iterates the parameterised Dun ODE to steady state (or a 
-% maximum specified time), and outputs both the equilibrium state reached 
-% (or NaNs if one is not reached) together with a flag that indicates 
-% whether a steady state was apparently reached
+% This function iterates the Dun ODE to steady state (or a maximum
+% specified time), and outputs both the equilibrium state reached (or NaNs
+% if one is not reached) together with a flag that indicates whether a
+% steady state was apparently reached
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -26,16 +26,19 @@ elseif nargin == 2
 end
 
 % Create a set of alpha values to run
-[alpha_up, alpha_down] = meshgrid( linspace(alpha_min, 1, Npts) );
+alpha_up_vals = linspace(alpha_min, 1, Npts);
+alpha_down_vals = linspace(alpha_min, 1, Npts);
 
 % Loop over each and find its associated stability value
 steady = zeros(Npts);
 for i = 1:Npts
+    
+    alpha_up = alpha_up_vals(i);
+    
     parfor j = 1:Npts
-        
-        steady(j,i) = DunStability([alpha_up(j,i), alpha_down(j,i)], phi_s, phi_r);
-        
+        steady(j,i) = DunStability([alpha_down_vals(j), alpha_up], phi_s, phi_r);
     end
+    
 end
 
 %%% Visualise
@@ -43,7 +46,8 @@ end
 % Prepare figure
 figure('units','Normalized','OuterPosition',[0 0 1 1]);
 % Plot results by padding plot with NaNs
-pcolor(alpha_up, alpha_down, steady);
+[Aup, Adown] = meshgrid(alpha_up_vals, alpha_down_vals);
+pcolor(Aup, Adown, steady);
 
 % Clean up plot
 axis square;

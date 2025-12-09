@@ -7,32 +7,34 @@ function K = kendallDist(X,Y)
 % Read out length of lists
 N = length(X);
 
-% Initialise distance
-K = 0;
-
+% If list sizes don't match, set distance to infinity
 if length(X) ~= length(Y)
-    X
-    Y
-end
+    K = Inf;
 
-% Loop over all unique combinations of elements
-for i = 1:N-1
-    for j = i+1:N
+% Otherwise, initialise distance at zero and proceed
+else
+    K = 0;
+
+    % Loop over all unique combinations of elements
+    for i = 1:N-1
+        for j = i+1:N
         
-        % Increment the distance counter in case of mismatch of rank
-        if X(i) > X(j)
-            if Y(i) < Y(j)
-                K = K + 1;
+            % Increment the distance counter in case of mismatch of rank
+            if X(i) > X(j)
+                if Y(i) < Y(j)
+                    K = K + 1;
+                end
+            elseif X(i) < X(j)
+                if Y(i) > Y(j)
+                    K = K + 1;
+                end
             end
-        elseif X(i) < X(j)
-            if Y(i) > Y(j)
-                K = K + 1;
-            end
+        
         end
-        
     end
-end
 
-% Scale the value by the number of pairs (this makes lists of different
-% lengths equally weighted)
-K = K / (0.5*N*(N-1));
+    % Scale the value by the number of pairs (this makes lists of different
+    % lengths equally weighted)
+    K = K / (0.5*N*(N-1));
+    
+end

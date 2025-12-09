@@ -10,12 +10,6 @@ function dX = DunODE(t, X, alphas, phi_s, phi_r)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Cytokinin parameters do not affect discrepancy so are fixed here
-lambda_ck = 1;
-K_fs = 1;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % Initialise the output vector
 dX = zeros(size(X));
 
@@ -46,12 +40,12 @@ loc = loc + Ns;
 ck = X(loc+(1:Nr));
 
 % Use the Dun et al. model equations to derive expressions for dX/dt
-dFS = params(1) .* 2 .* params(2) ./ (params(2) + I) .* phi_FS - FS;
-dfs = params(3) * phi_fs + params(7) / Ns * sum(FS) - fs;
-dSL = params(4) * FS.^2 .* phi_SL + params(8) / Nr * sum(sl) - SL;
-dsl = params(5) * fs.^2 .* phi_sl - sl;
-dI = params(6) * SL .* phi_I - I;
-dck = lambda_ck .* 2 .* K_fs ./ (K_fs + fs) - ck;
+dFS = 2  ./ (1 + I) .* phi_FS - FS;
+dfs = phi_fs + alphas(1) / Ns * sum(FS) - fs;
+dSL = FS.^2 .* phi_SL + alphas(2) / Nr * sum(sl) - SL;
+dsl = fs.^2 .* phi_sl - sl;
+dI = SL .* phi_I - I;
+dck = 2 ./ (1 + fs) - ck;
 
 % Re-store the individual components of dX in dX
 loc = 0;

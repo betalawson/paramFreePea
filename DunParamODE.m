@@ -1,11 +1,18 @@
-function dX = DunParamODE(t, X, alphas, phi_s, phi_r)
+function dX = DunParamODE(t, X, params, phi_s, phi_r)
 % This function evaluates the right hand side of the ODE model associated
-% with the Dun et al. difference equation, using the parameters provided
-% in vector 'params' and genotypic switch settings taking values {0,1}:
+% with the Dun et al. difference equation, using the transfer parameters
+% provided in vector 'params' and genotypic switch settings taking
+% values {0,1}:
 %  phi_s: 3xNs, Ns the number of shoot components
 %         (each column specifies [phi_FS; phi_SL; phi_I] for one component)
 %  phi_r: 2xNr, Nr the number of root components
 %         (each column specifies [phi_fs; phi_sl] for one component)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Cytokinin parameters do not affect discrepancy so are fixed here
+lambda_ck = 1;
+K_fs = 1;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -39,12 +46,12 @@ loc = loc + Ns;
 ck = X(loc+(1:Nr));
 
 % Use the Dun et al. model equations to derive expressions for dX/dt
-dFS = 2 ./ (1 + I) .* phi_FS - FS;
-dfs = phi_fs + alphas(2) / Ns * sum(FS) - fs;
-dSL = FS.^2 .* phi_SL + alphas(1) / Nr * sum(sl) - SL;
-dsl = fs.^2 .* phi_sl - sl;
-dI = SL .* phi_I - I;
-dck = 2 ./ (1 + fs) - ck;
+dFS = params(1) .* 2 .* params(2) ./ (params(2) + I) .* phi_FS - FS;
+dfs = params(3) * phi_fs + params(7) / Ns * sum(FS) - fs;
+dSL = params(4) * FS.^2 .* phi_SL + params(8) / Nr * sum(sl) - SL;
+dsl = params(5) * fs.^2 .* phi_sl - sl;
+dI = params(6) * SL .* phi_I - I;
+dck = lambda_ck .* 2 .* K_fs ./ (K_fs + fs) - ck;
 
 % Re-store the individual components of dX in dX
 loc = 0;

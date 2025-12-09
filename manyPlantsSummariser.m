@@ -71,8 +71,6 @@ G2u_onprop = mean(G2u,1)
 G2a_onprop = mean(G2a,1)
 
 
-keyboard
-
 end
 
 
